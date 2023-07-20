@@ -9,7 +9,7 @@ class Category:
 
     def __str__(self) : 
         i=0
-        asteriskNumber = 30 -len(self.name) #get rid of this for a single string literal that cneters in 30 on *
+        asteriskNumber = 30 -len(self.name) #get rid of this for a single string literal that centers in 30 on *
         if asteriskNumber % 2 != 0 : 
             leaderAsterisk = asteriskNumber - 1
             trailingAsterisk = asteriskNumber + 1
@@ -23,7 +23,7 @@ class Category:
             
         
     
-    def deposit(self,amount, description = None) : ##descr needs to default to any empty string
+    def deposit(self,amount, description = None) : # this is the deposit method
         if description is None : 
                 description = ""
         class LedgerItem:   
@@ -33,12 +33,9 @@ class Category:
 
         ledgerItem = LedgerItem(amount, description)
         self.ledger.append(ledgerItem)
-
-        ##TODO
-        ##appends an obj with {amount, descr} to the ledger list
         return
 
-    def withdraw(self, amount, description = None): ##descr needs to default to any empty string
+    def withdraw(self, amount, description = None): #this is the withdraw method
         if description is None : 
             description = ""
         
@@ -49,20 +46,20 @@ class Category:
             return False
             
         
-    def get_balance(self):
+    def get_balance(self): #this method gets the balance of the self object
         balance = 0
         for x in self.ledger : 
             balance = balance + x.amount
        
         return balance
 
-    def transfer(self, amount, otherCategory) : #todo should return false if cateogory does not have enough funds to cover amount
+    def transfer(self, amount, otherCategory) : #this is the transfer method. 
         if self.check_funds(amount) == False : 
             return False
         self.withdraw(amount, "transfer to " + otherCategory.name)
         otherCategory.deposit(amount, "transfer from " + self.name)
         return True
-    def check_funds(self, amount):
+    def check_funds(self, amount): #this is the check fund method
         balance = 0
         for x in self.ledger : 
             balance = balance + x.amount
@@ -72,7 +69,7 @@ class Category:
             return True
 
         
-def create_spend_chart(categories):
+def create_spend_chart(categories): #this is the chrat creating method
     
     chartTitle = "Percentage Spend by Category\n"
     chartBody = ["100|"," 90|",' 80|',' 70|',' 60|',' 50|',' 40|',' 30|',' 20|',' 10|','  0|']
@@ -97,7 +94,7 @@ def create_spend_chart(categories):
                 chartBody[j] = chartBody[j]+ "o "
             i -= 10
             j += 1
-    def transposeCategories(categories) :
+    def transposeCategories(categories) : #this mehod takes the categories them to strings that are vertical for display purposes
         catNameList = []
         transposedCategories = []
         for x in categories :
@@ -109,7 +106,7 @@ def create_spend_chart(categories):
         while i > 0: 
             catString = ""
             for x in catNameList : 
-                try : #wrap in try catch block add a space if exception thrown 
+                try : 
                     catString = catString +  x[j] + " "
                 except : 
                     catString += "  "
@@ -119,7 +116,7 @@ def create_spend_chart(categories):
                 
 
         return transposedCategories
-    def buildXAxis(chartBody) : 
+    def buildXAxis(chartBody) : #this method builds the Xaxis based on the length of the chartbody string. 
         xAxis = "   "
         i = len(chartBody[1]) - 3
         while i >= 0 :
